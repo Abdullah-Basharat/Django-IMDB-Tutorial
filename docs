@@ -41,5 +41,14 @@ With DRF:
     a) Class based views  (APIview)
     b) Function based views (@api_view())
 
+Validations:
+1) Field level validations define as validate_fieldname (Validate individual field like field name should have length > 2)
+2) Object level validations define as validate (Validate object means compare two fields of object. Pswd and Confirm Psw should same.)
+3) Validators define as pass in the parameters in the field of serializer and define that function.
+
+
+
+
+
 
 
