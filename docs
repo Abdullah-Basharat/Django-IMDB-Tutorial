@@ -46,6 +46,15 @@ Validations:
 2) Object level validations define as validate (Validate object means compare two fields of object. Pswd and Confirm Psw should same.)
 3) Validators define as pass in the parameters in the field of serializer and define that function.
 
+Serializer: We have to create fields again for eac model and also have to write .create() and .update() method.
+ModelSerializer: Simpy gives models name in Meta class and fields to include or exclude.
+
+But in both serializers we should define validations if we use .is_valid() method.
+--> Serializer methodfield is used to create another attribute that is not defined in the Model.
+And have a specific syntax field_name and function should be get_field_name().
+
+                              ---------------------------------
+
 
 
 
