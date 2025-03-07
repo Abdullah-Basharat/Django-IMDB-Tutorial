@@ -55,6 +55,56 @@ And have a specific syntax field_name and function should be get_field_name().
 
                               ---------------------------------
 
+Relationships in Django:
+1) ONE-TO-ONE
+2) MANY-TO-ONE
+3) MANY-TO-MANY
+
+Nested Serializer: It is when we define relationship between models and want to display hierarcy of instances.
+
+HyperlinkSerializer and Hyperlinkfield should add context={'request': request} at the time of initialization of serialization.
+And it gives you the hyperlink of complete object.
+
+Mixins: It is a class based api view and provides generic api and provides build in methods .create() , .update() etc
+that we have to built manually in APIVIEW class.
+
+Concrete View Classes: It is one more level abstraction and the API class we inherit already have the mixins
+so we dont need to write .get(), .post() etc.
+
+In this we have simple two things:
+serilaizer_class = ?
+query_set = Retrieve objects from where get method apply.
+
+if you want to change query_set, you have to override get_queryset(self):
+
+and if you have a specific logic than you have to create mehtods:
+1) perform_create()
+2) perform_update()
+3) perform_destroy()
+
+ViewSets and Routers:
+View set is useful in a way when you want all or individual item.
+have methods list(), retreive()
+-> Router in this way define a url for both and handles automatically.
+
+
+
+                        <------------------------------------->
+Git Tutorial:
+
+Settings (First Time):
+1) Name                     git config --global user.name "Abdullah Basharat"
+2) Email                    git config --global user.email abdullahbasharat400@gmail.com
+3) Default Editor
+4) Line Ending
+
+Three level in git:
+1) System: All users
+2) Global: All repositories of current user
+3) Local: The Current Repository
+
+
+
 
 
 

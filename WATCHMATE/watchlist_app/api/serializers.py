@@ -1,11 +1,12 @@
 from rest_framework import serializers
 
-from ..models import Movie
+from ..models import WatchList, StreamPlatform, Review
 
-def validate_obj(value):
-    if len(value) < 3:
-        raise serializers.ValidationError("Movie is too short")
-    return value
+
+# def validate_obj(value):
+#     if len(value) < 3:
+#         raise serializers.ValidationError("Movie is too short")
+#     return value
 
 # class MovieSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
@@ -43,29 +44,30 @@ def validate_obj(value):
 #             raise serializers.ValidationError('Name and Description must be different')
 #         return data
 
-
-class MovieSerializer(serializers.ModelSerializer):
-    len_name = serializers.SerializerMethodField()
+class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Movie
-        # fields = '__all__'
+        model = Review
+        fields = '__all__'
+
+
+class WatchListSerializer(serializers.ModelSerializer):
+    reviews = serializers.StringRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = WatchList
+        fields = '__all__'
         # fields = ['name','description']         #Fields to display
-        exclude = ['id']
+        # exclude = ['id']
 
-    def get_len_name(self, obj):
-        return len(obj.name)
+class StreamPlatformSerializer(serializers.ModelSerializer):
+    # watchlist = WatchListSerializer(many=True, read_only=True)
+    watchlist = serializers.HyperlinkedRelatedField(
+        many=True,
+        read_only=True,
+        view_name='movie-detail'
+    )
 
-
-
-    # Field Level Validators
-    def validate_name(self,value):
-        if len(value) < 3:
-            raise serializers.ValidationError('Name must be at least 3 characters')
-        return value
-
-    #Object Level Validaotrs
-    def validate(self,data):
-        if data['name'] == data['description']:
-            raise serializers.ValidationError('Name and Description must be different')
-        return data
+    class Meta:
+        model = StreamPlatform
+        fields = '__all__'
