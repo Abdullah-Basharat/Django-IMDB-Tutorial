@@ -1,22 +1,25 @@
 API:Middle man
-1) Private: Within Organization
-2) Partner: Have access to partners like google and uber
-3) Public: Any one can access or use this like weather forecast api
+
+1. Private: Within Organization
+2. Partner: Have access to partners like google and uber
+3. Public: Any one can access or use this like weather forecast api
 
 Urls:
 Urls has two parts baseurl/ endpoint.
-* baseurl is the same for all like organization domain abdullah.com/
+
+- baseurl is the same for all like organization domain abdullah.com/
 
 REST architecture:
-1) endpoint: api.
-2) method: CRUD
-            Create :  POST
-            Read :    GET
-            Update :  PUT
-            Delete :  DELETE
-3) headers: Are the status code like 200,404 and 500
 
-4) the body/data: JSON to send request and response.
+1. endpoint: api.
+2. method: CRUD
+   Create : POST
+   Read : GET
+   Update : PUT
+   Delete : DELETE
+3. headers: Are the status code like 200,404 and 500
+
+4. the body/data: JSON to send request and response.
 
 Makemigrations : Create a migration file that has changes in models.
 Migrate: Apply physical migrations to the database
@@ -25,26 +28,27 @@ Django-REST-FrameWork(DRF):
 
 Without DRF, to retrieve data contains steps:
 a) GET:
-    Query -------------> Complex Data Type -------> Python Native Data Type ------> JSON.
-             Serialization
+Query -------------> Complex Data Type -------> Python Native Data Type ------> JSON.
+Serialization
 b) POST:
-    JSON ----------------> Python Native Data Type -----------------------> Complex Data Type
-            Parsing                                     De-Serialization
-
+JSON ----------------> Python Native Data Type -----------------------> Complex Data Type
+Parsing De-Serialization
 
 With DRF:
-1) Types of Serializers:
-    a) serializers.Serializer
-    b) serializers.ModelSerializer
 
-2) Types of Views:
-    a) Class based views  (APIview)
-    b) Function based views (@api_view())
+1. Types of Serializers:
+   a) serializers.Serializer
+   b) serializers.ModelSerializer
+
+2. Types of Views:
+   a) Class based views (APIview)
+   b) Function based views (@api_view())
 
 Validations:
-1) Field level validations define as validate_fieldname (Validate individual field like field name should have length > 2)
-2) Object level validations define as validate (Validate object means compare two fields of object. Pswd and Confirm Psw should same.)
-3) Validators define as pass in the parameters in the field of serializer and define that function.
+
+1. Field level validations define as validate_fieldname (Validate individual field like field name should have length > 2)
+2. Object level validations define as validate (Validate object means compare two fields of object. Pswd and Confirm Psw should same.)
+3. Validators define as pass in the parameters in the field of serializer and define that function.
 
 Serializer: We have to create fields again for eac model and also have to write .create() and .update() method.
 ModelSerializer: Simpy gives models name in Meta class and fields to include or exclude.
@@ -56,9 +60,10 @@ And have a specific syntax field_name and function should be get_field_name().
                               ---------------------------------
 
 Relationships in Django:
-1) ONE-TO-ONE
-2) MANY-TO-ONE
-3) MANY-TO-MANY
+
+1. ONE-TO-ONE
+2. MANY-TO-ONE
+3. MANY-TO-MANY
 
 Nested Serializer: It is when we define relationship between models and want to display hierarcy of instances.
 
@@ -78,36 +83,83 @@ query_set = Retrieve objects from where get method apply.
 if you want to change query_set, you have to override get_queryset(self):
 
 and if you have a specific logic than you have to create mehtods:
-1) perform_create()
-2) perform_update()
-3) perform_destroy()
+
+1. perform_create()
+2. perform_update()
+3. perform_destroy()
 
 ViewSets and Routers:
 View set is useful in a way when you want all or individual item.
 have methods list(), retreive()
 -> Router in this way define a url for both and handles automatically.
 
+ModelViewSet has abstraction like concreate clsses and have all the control on model by just
+defining queryset and Serializer.
 
+Permissions: To restricted soemthing from some one.
+
+1. On all app include permission in settings.py
+2. Object level permession, specific url accessed after login.
+
+Authentications:
+
+1. Which user has login rights or not?
+
+Basic Authentication: Login with user and password of base64 from post man
 
                         <------------------------------------->
+
 Git Tutorial:
 
 Settings (First Time):
-1) Name                     git config --global user.name "Abdullah Basharat"
-2) Email                    git config --global user.email abdullahbasharat400@gmail.com
-3) Default Editor
-4) Line Ending
+
+1. Name git config --global user.name "Abdullah Basharat"
+2. Email git config --global user.email abdullahbasharat400@gmail.com
+3. Default Editor git config --global core.editor "notepad"
+4. Line Ending git config --global core.autocrlf true / input (true for windows/input for mac)
 
 Three level in git:
-1) System: All users
-2) Global: All repositories of current user
-3) Local: The Current Repository
 
+1. System: All users
+2. Global: All repositories of current user
+3. Local: The Current Repository
 
+SnapShots: Version of your Projects.
 
+1. Move file from working directoru tp staging area (Temporary Snapshot): git add file1 file2 / git add .
+2. Move file from staging ares to permanent snapshot: git commit -m "Initial Commit."
+3. Move file from working directory to permanent snapshot: git commit -am "Files commited Without Staging."
+4. See the version with unique id of each snapshot: git log
+5. Check specific verion: git checkout snapshot_id
+6. Back to latest snapshot: git checkout main / git checkout -f main
 
+Connect with github:
 
+1. git remote add origin url.
+2. git remote add origin2 url. (Second remote repository)
+3. git clone url. (Than add your files.)
+4. git push -u origin branch_name
 
+Branches and Merging:
 
+1. git branch branch-name
+2. git checkout branch-name
+3. git checkout -b branch-name
+4. git branch branch-name source-branch (From where new branch starts.)
 
+Steps:
 
+1. Clone a repo.
+2. Make a new branch from branch.
+3. Make your changes.
+4. Push to the remote repo.
+5. Open a pull request.
+6. Merge changes.
+7. Pull the merged changes into your local main branch.
+
+Merge Conflicts:
+
+1. pull main branch
+2. git merge main
+3. solve conflicts manually.
+4. Push to remote repo.

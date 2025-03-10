@@ -45,10 +45,21 @@ from ..models import WatchList, StreamPlatform, Review
 #         return data
 
 class ReviewSerializer(serializers.ModelSerializer):
+    review_user = serializers.SerializerMethodField()
+    movie = serializers.SerializerMethodField()
+
+
 
     class Meta:
         model = Review
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ['id','created','updated','reviewer']
+
+    def get_review_user(self, obj):
+        return obj.reviewer.username
+
+    def get_movie(self, obj):
+        return obj.movie.title
 
 
 class WatchListSerializer(serializers.ModelSerializer):
@@ -62,11 +73,12 @@ class WatchListSerializer(serializers.ModelSerializer):
 
 class StreamPlatformSerializer(serializers.ModelSerializer):
     # watchlist = WatchListSerializer(many=True, read_only=True)
-    watchlist = serializers.HyperlinkedRelatedField(
-        many=True,
-        read_only=True,
-        view_name='movie-detail'
-    )
+    # watchlist = serializers.HyperlinkedRelatedField(
+    #     many=True,
+    #     read_only=True,
+    #     view_name='movie-detail'
+    # )
+    watchlist = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = StreamPlatform

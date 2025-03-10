@@ -1,5 +1,10 @@
-from django.urls import path
+from django.urls import path,include
 from .views import *
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register("stream",StreamPlatformVS,basename="stream")
+
 
 
 # urlpatterns = [
@@ -12,8 +17,9 @@ urlpatterns = [
     path("list/",WatchListsAV.as_view(),name="movie-list"),
     path("list/<int:pk>",WatchDetailsAV.as_view(),name="movie-detail"),
 
-    path("stream/",StreamListsAV.as_view(),name="stream"),
-    path("stream/<int:pk>",StreamDetailsAV.as_view(),name="stream-detail"),
+    # path("stream/",StreamListsAV.as_view(),name="stream"),
+    # path("stream/<int:pk>",StreamDetailsAV.as_view(),name="stream-detail"),
+    path("",include(router.urls)),
 
     path("stream/<int:pk>/review/", ReviewListAV.as_view(), name="review"),
     path("stream/<int:pk>/review-create/", ReviewCreateAv.as_view(), name="review-create"),
