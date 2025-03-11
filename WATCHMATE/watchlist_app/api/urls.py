@@ -21,9 +21,9 @@ urlpatterns = [
     # path("stream/<int:pk>",StreamDetailsAV.as_view(),name="stream-detail"),
     path("",include(router.urls)),
 
-    path("stream/<int:pk>/review/", ReviewListAV.as_view(), name="review"),
-    path("stream/<int:pk>/review-create/", ReviewCreateAv.as_view(), name="review-create"),
-    path("stream/review/<int:pk>", ReviewDetailAV.as_view(), name="review-detail"),
+    path("<int:pk>/review/", ReviewListAV.as_view(), name="review"),
+    path("<int:pk>/review-create/", ReviewCreateAv.as_view(), name="review-create"),
+    path("review/<int:pk>", ReviewDetailAV.as_view(), name="review-detail"),
 
     # path("review/",ReviewListAV.as_view(),name="review"),
     # path("review/<int:pk>",ReviewDetailAV.as_view(),name="review-detail"),

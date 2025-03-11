@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .serializers import WatchListSerializer,StreamPlatformSerializer,ReviewSerializer
 from rest_framework.decorators import api_view
@@ -10,7 +11,9 @@ from rest_framework import mixins
 from rest_framework import generics
 
 from rest_framework import viewsets
+from .permission import IsOwnerOrReadOnly
 from django.shortcuts import get_object_or_404
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -83,8 +86,10 @@ from django.shortcuts import get_object_or_404
 #
 
 class ReviewListAV(generics.ListAPIView):
+
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         watchlist = self.kwargs['pk']
@@ -92,8 +97,11 @@ class ReviewListAV(generics.ListAPIView):
 
 
 class ReviewDetailAV(generics.RetrieveUpdateDestroyAPIView):
+
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = (IsOwnerOrReadOnly,)
+
 
 class ReviewCreateAv(generics.CreateAPIView):
     serializer_class = ReviewSerializer
