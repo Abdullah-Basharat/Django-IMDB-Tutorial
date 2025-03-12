@@ -14,3 +14,18 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         # Instance must have an attribute named `owner`.
         return obj.reviewer == request.user
+
+
+class IsAdminOrReadOnly(permissions.BasePermission):
+    """
+    Custom permission that allows only admin users to edit/delete.
+    Other users can only read (GET, HEAD, OPTIONS).
+    """
+
+    def has_permission(self, request, view):
+        # SAFE_METHODS are: GET, HEAD, OPTIONS (read-only)
+        if request.method in permissions.SAFE_METHODS:
+            return True  # Allow read-only access
+
+        # Otherwise, check if the user is an admin
+        return request.user and request.user.is_staff

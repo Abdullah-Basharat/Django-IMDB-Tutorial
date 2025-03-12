@@ -17,6 +17,8 @@ urlpatterns = [
     path("list/",WatchListsAV.as_view(),name="movie-list"),
     path("list/<int:pk>",WatchDetailsAV.as_view(),name="movie-detail"),
 
+    path("reviews/",UserReview.as_view(),name="user-review"),
+
     # path("stream/",StreamListsAV.as_view(),name="stream"),
     # path("stream/<int:pk>",StreamDetailsAV.as_view(),name="stream-detail"),
     path("",include(router.urls)),

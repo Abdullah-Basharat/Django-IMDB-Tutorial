@@ -11,7 +11,7 @@ from rest_framework import mixins
 from rest_framework import generics
 
 from rest_framework import viewsets
-from .permission import IsOwnerOrReadOnly
+from .permission import IsOwnerOrReadOnly,IsAdminOrReadOnly
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 
@@ -89,7 +89,7 @@ class ReviewListAV(generics.ListAPIView):
 
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAdminOrReadOnly,)
 
     def get_queryset(self):
         watchlist = self.kwargs['pk']
@@ -98,12 +98,16 @@ class ReviewListAV(generics.ListAPIView):
 
 class ReviewDetailAV(generics.RetrieveUpdateDestroyAPIView):
 
+    permission_classes = (IsOwnerOrReadOnly)
+
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     permission_classes = (IsOwnerOrReadOnly,)
 
 
 class ReviewCreateAv(generics.CreateAPIView):
+    permission_classes = [IsAuthenticated]
+
     serializer_class = ReviewSerializer
     queryset = Review.objects.all()
 
@@ -115,9 +119,23 @@ class ReviewCreateAv(generics.CreateAPIView):
 
         if review_query.exists():
             raise ValidationError("You are already reviewed")
+
+        if watchlist.number_rating == 0:
+            watchlist.average_rating = serializer.validated_data['average_rating']
+            print(watchlist.average_rating,0)
+        else:
+            watchlist.average_rating = (serializer.validated_data['average_rating']+watchlist.average_rating)/2
+            print(watchlist.average_rating,1)
+
+        watchlist.number_rating += 1
+        watchlist.save()
+
         serializer.save(movie=watchlist,user=review_user)
 
 class StreamPlatformVS(viewsets.ViewSet):
+
+    permission_classes = [IsAdminOrReadOnly]
+
     """
     A simple ViewSet for listing or retrieving users.
     """
@@ -176,6 +194,9 @@ class StreamPlatformVS(viewsets.ViewSet):
 
 class WatchListsAV(APIView):
 
+    permission_classes = [IsAdminOrReadOnly]
+
+
     def get(self, request):
         movies = WatchList.objects.all()
         serializer = WatchListSerializer(movies, many=True)
@@ -190,6 +211,7 @@ class WatchListsAV(APIView):
 
 class WatchDetailsAV(APIView):
 
+    permission_classes = [IsAdminOrReadOnly]
     def get(self,request,pk):
         try:
             movie = WatchList.objects.get(pk=pk)
@@ -220,3 +242,10 @@ class WatchDetailsAV(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except WatchList.DoesNotExist:
             return Response({"Error":"Movie Not Found"},status=status.HTTP_404_NOT_FOUND)
+
+class UserReview(generics.ListAPIView):
+    serializer_class = ReviewSerializer
+
+    def get_queryset(self):
+        username = self.request.query_params.get('username')
+        return Review.objects.filter(reviewer__username=username)
