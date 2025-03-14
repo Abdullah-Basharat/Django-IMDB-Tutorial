@@ -105,9 +105,58 @@ Authentications:
 
 1. Which user has login rights or not?
 
-Basic Authentication: Login with user and password of base64 from post man
+Basic Authentication: Login with user and password of base64 from post man.
 
-                        <------------------------------------->
+Token Authentication:
+
+1. Token is an entry point for a website like in a car parking we have saccess our car if we have token ticket that is generated at our entry in parking.
+2. Token is generated when user sign up.
+3. With token user access restricted pages.
+4. When Log out, destry that token
+
+5. rest_framework provides login functionality by using views obatin_auth_token.
+6. for registaration process define serializers for User method and add new field of confirm password and return token in a JSON.
+
+JWT (JavaScript Web Token):
+
+When you frontend is around JS frameworks like (Reaact,Angular )etc.
+Use JWT to reguster and login.
+It uses two tokens:
+
+1.  Access Token (Destroy after 5 mins)
+2.  Refresh Token (Destroy after 24 hrs)
+
+Throtling:
+
+It means how many requests one user can send. (Free user can send 20 and paid user can send unlimited).
+Types:
+
+1. AnonRateThrottle (Anonymoius user)
+2. UserRateThrottle (Regisstered user)
+
+Filtering: It is all about work like a query_set() method of concrete classes.
+We can do three things by filtering.
+
+1. Filter
+2. Search
+3. Order
+
+django_filter package runs on Genericclasses only.
+
+Pagination:
+
+1. Divide the number of objects to display per page.
+2. PageOffset Pagination (Have next and previous page pointer)
+3. LimitOffset Pagination (limit and offset = 5 and 12 means we need 5 objects after 12th objects.)Helpful when user has api of seller and received json response. He can adjust then the limit and offset.
+4. Cursor Pagination
+
+Testing:
+
+1. Write test case of your apis and test them.
+2. Each app has its own test.py.
+3. We can also make a test folder name should start with test.
+4. Run : python manage.py test.
+   <------------------------------------->
 
 Git Tutorial:
 
@@ -163,3 +212,19 @@ Merge Conflicts:
 2. git merge main
 3. solve conflicts manually.
 4. Push to remote repo.
+
+Git Reset:
+
+1. Soft reset: git reset --soft <git-hash> (Move the head to the specific hash and all after that will be in staging area.)
+2. Mixed reset: git reset <git-hash> (Move the head to the specific hash and all after that will be in current working directory means ready for staging area.)
+3. Hard reset: git reset --hard <git-hash> (Move the head to the specific hash and all after that will be permanently remove.)
+
+Git revert: Similar to the reset but do not remove any thing if you revert it means add another commit with the reset. Track history of all the chages you made.
+
+Git stash:
+
+1. Means you are working on some feature and that is not complete yet means it is not ready to commit and your team mate ask to urgently add something. Here is when git stash comes in action.
+2. Command: git stash (Save all your staged and unstaged things temporary without commiting.)
+3. After apply that feature for friend, you push the code and now you want to comeback to your code that you stash earlier.
+4. Check stash name by: git stash list
+5. Than use : git stash apply <stash-name>.
