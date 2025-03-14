@@ -152,79 +152,9 @@ Pagination:
 
 Testing:
 
-1. Write test case of your apis and test them.
-2. Each app has its own test.py.
-3. We can also make a test folder name should start with test.
-4. Run : python manage.py test.
-   <------------------------------------->
+1.  Write test case of your apis and test them.
+2.  Each app has its own test.py.
+3.  We can also make a test folder name should start with test.
+4.  Run : python manage.py test.
 
-Git Tutorial:
-
-Settings (First Time):
-
-1. Name git config --global user.name "Abdullah Basharat"
-2. Email git config --global user.email abdullahbasharat400@gmail.com
-3. Default Editor git config --global core.editor "notepad"
-4. Line Ending git config --global core.autocrlf true / input (true for windows/input for mac)
-
-Three level in git:
-
-1. System: All users
-2. Global: All repositories of current user
-3. Local: The Current Repository
-
-SnapShots: Version of your Projects.
-
-1. Move file from working directoru tp staging area (Temporary Snapshot): git add file1 file2 / git add .
-2. Move file from staging ares to permanent snapshot: git commit -m "Initial Commit."
-3. Move file from working directory to permanent snapshot: git commit -am "Files commited Without Staging."
-4. See the version with unique id of each snapshot: git log
-5. Check specific verion: git checkout snapshot_id
-6. Back to latest snapshot: git checkout main / git checkout -f main
-
-Connect with github:
-
-1. git remote add origin url.
-2. git remote add origin2 url. (Second remote repository)
-3. git clone url. (Than add your files.)
-4. git push -u origin branch_name
-
-Branches and Merging:
-
-1. git branch branch-name
-2. git checkout branch-name
-3. git checkout -b branch-name
-4. git branch branch-name source-branch (From where new branch starts.)
-
-Steps:
-
-1. Clone a repo.
-2. Make a new branch from branch.
-3. Make your changes.
-4. Push to the remote repo.
-5. Open a pull request.
-6. Merge changes.
-7. Pull the merged changes into your local main branch.
-
-Merge Conflicts:
-
-1. pull main branch
-2. git merge main
-3. solve conflicts manually.
-4. Push to remote repo.
-
-Git Reset:
-
-1. Soft reset: git reset --soft <git-hash> (Move the head to the specific hash and all after that will be in staging area.)
-2. Mixed reset: git reset <git-hash> (Move the head to the specific hash and all after that will be in current working directory means ready for staging area.)
-3. Hard reset: git reset --hard <git-hash> (Move the head to the specific hash and all after that will be permanently remove.)
-
-Git revert: Similar to the reset but do not remove any thing if you revert it means add another commit with the reset. Track history of all the chages you made.
-
-Git stash:
-
-1. Means you are working on some feature and that is not complete yet means it is not ready to commit and your team mate ask to urgently add something. Here is when git stash comes in action.
-2. Command: git stash (Save all your staged and unstaged things temporary without commiting.)
-3. After apply that feature for friend, you push the code and now you want to comeback to your code that you stash earlier.
-4. Check stash name by: git stash list
-5. Than use : git stash apply <stash-name>.
+                                 <------------------------------------->
